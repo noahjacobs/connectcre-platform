@@ -1,26 +1,870 @@
+@import "@silk-hq/components/unlayered-styles" layer(silk);
+
 @import "tailwindcss";
+@plugin '../lib/utils/hero.ts';
+@plugin "tailwindcss-animate";
+
+@source "app/**/*.{ts,tsx}";
+@source "shared/**/*.{ts,tsx}";
+@source "features/**/*.{ts,tsx}";
+@source "hooks/**/*.{ts,tsx}";
+@source "lib/**/*.{ts,tsx}";
+@source "node_modules/onborda/dist/**/*.{js,ts,jsx,tsx}";
+
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  --blur-gradient: linear-gradient(to bottom, transparent, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.95) 50%);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+  --blur-gradient: linear-gradient(to bottom, transparent, rgba(0,0,0,0.8) 25%, rgba(0,0,0,0.95) 50%);
 }
 
 @theme inline {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-up: fade-up 0.7s ease-out forwards;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  @keyframes fade-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+
+  @media (width >= 1400px) {
+    max-width: 1400px;
+  }
+
+  @media (max-width: 640px) {
+    @apply px-4;
+  }
+}
+
+@utility scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Restore default button cursor behavior */
+  button {
+    cursor: pointer;
+  }
+
+  /* Also ensure disabled buttons don't have pointer cursor */
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  h1 {
+    font-family: var(--font-sans);
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: bold;
+    @media (min-width: 768px) {
+      font-size: 3.5rem;
+    }
+  }
+
+  h2 {
+    font-family: var(--font-sans);
+    font-size: 2rem;
+    line-height: 1.2;
+    font-weight: bold;
+    @media (min-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    line-height: 1.2;
+    @media (min-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+
+  h4 {
+    font-family: var(--font-sans);
+    font-size: 1.25rem;
+    line-height: 1.3;
+    @media (min-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  h5 {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    line-height: 1.4;
+    @media (min-width: 768px) {
+      font-size: 1.25rem;
+    }
+  }
+
+  h6 {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+}
+
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.embla-thumbs__container {
+  display: flex;
+  margin-left: -1rem;
+}
+
+.embla-thumbs .embla-thumbs__container {
+  cursor: default;
+  margin-left: 0;
+}
+
+.embla-thumbs__slide {
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+
+.embla-thumbs__slide--selected {
+  opacity: 1;
+}
+
+/* Mobile-friendly adjustments */
+@media (max-width: 640px) {
+  .embla__slide {
+    padding: 1rem;
+  }
+
+  .embla-thumbs {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+  }
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.container {
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 80rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out forwards;
+}
+
+body.paywall-active {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.bg-gradient {
+  background: var(--blur-gradient);
+}
+
+@layer base {
+  @property --pos-x {
+    syntax: '<percentage>';
+    initial-value: 11.14%;
+    inherits: false;
+  }
+
+  @property --pos-y {
+    syntax: '<percentage>';
+    initial-value: 140%;
+    inherits: false;
+  }
+
+  @property --spread-x {
+    syntax: '<percentage>';
+    initial-value: 150%;
+    inherits: false;
+  }
+
+  @property --spread-y {
+    syntax: '<percentage>';
+    initial-value: 180.06%;
+    inherits: false;
+  }
+
+  @property --color-1 {
+    syntax: '<color>';
+    initial-value: #000;
+    inherits: false;
+  }
+
+  @property --color-2 {
+    syntax: '<color>';
+    initial-value: #08012c;
+    inherits: false;
+  }
+
+  @property --color-3 {
+    syntax: '<color>';
+    initial-value: #4e1e40;
+    inherits: false;
+  }
+
+  @property --color-4 {
+    syntax: '<color>';
+    initial-value: #70464e;
+    inherits: false;
+  }
+
+  @property --color-5 {
+    syntax: '<color>';
+    initial-value: #88394c;
+    inherits: false;
+  }
+
+  @property --border-angle {
+    syntax: '<angle>';
+    initial-value: 20deg;
+    inherits: true;
+  }
+
+  @property --border-color-1 {
+    syntax: '<color>';
+    initial-value: hsla(340, 75%, 60%, 0.2);
+    inherits: true;
+  }
+
+  @property --border-color-2 {
+    syntax: '<color>';
+    initial-value: hsla(340, 75%, 40%, 0.75);
+    inherits: true;
+  }
+
+  @property --stop-1 {
+    syntax: '<percentage>';
+    initial-value: 37.35%;
+    inherits: false;
+  }
+
+  @property --stop-2 {
+    syntax: '<percentage>';
+    initial-value: 61.36%;
+    inherits: false;
+  }
+
+  @property --stop-3 {
+    syntax: '<percentage>';
+    initial-value: 78.42%;
+    inherits: false;
+  }
+
+  @property --stop-4 {
+    syntax: '<percentage>';
+    initial-value: 89.52%;
+    inherits: false;
+  }
+
+  @property --stop-5 {
+    syntax: '<percentage>';
+    initial-value: 100%;
+    inherits: false;
+  }
+}
+
+@layer components {
+  .gradient-button {
+    position: relative;
+    appearance: none;
+    cursor: pointer;
+    background: radial-gradient(
+      var(--spread-x) var(--spread-y) at var(--pos-x) var(--pos-y),
+      var(--color-1) var(--stop-1),
+      var(--color-2) var(--stop-2),
+      var(--color-3) var(--stop-3),
+      var(--color-4) var(--stop-4),
+      var(--color-5) var(--stop-5)
+    );
+    /* Ensure button is fully opaque */
+    background-blend-mode: normal;
+    backdrop-filter: none;
+    mix-blend-mode: normal;
+    isolation: isolate;
+    box-shadow: var(--button-shadow, 0 1px 2px rgba(0, 0, 0, 0.1));
+    transform: scale(var(--button-scale, 1));
+    transition:
+      --pos-x 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+      --pos-y 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+      --spread-x 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+      --spread-y 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+      --color-1 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      --color-2 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      --color-3 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      --color-4 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      --color-5 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      --border-angle 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --border-color-1 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      --border-color-2 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      --stop-1 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      --stop-2 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      --stop-3 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      --stop-4 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      --stop-5 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      --button-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      --button-scale 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, box-shadow;
+    z-index: 1;
+  }
+
+  .gradient-button:hover {
+    transition:
+      --pos-x 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+      --pos-y 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+      --spread-x 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+      --spread-y 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+      --color-1 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --color-2 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --color-3 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --color-4 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --color-5 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --border-angle 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      --border-color-1 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --border-color-2 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --stop-1 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --stop-2 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --stop-3 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --stop-4 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --stop-5 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --button-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      --button-scale 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Light mode - default variant (Orange theme) */
+  :root[class~="light"] .gradient-button:not(.gradient-button-variant) {
+    /* Solid orange background - no transparency */
+    --color-1: #fff0e0; /* Light peach - fully opaque */
+    --color-2: #ffe0c0; /* Light orange - fully opaque */
+    --color-3: #ffd0a0; /* Light orange - fully opaque */
+    --color-4: #ffc080; /* Orange - fully opaque */
+    --color-5: #ffb060; /* Warm orange - fully opaque */
+    /* Strong border */
+    --border-color-1: hsla(24, 95%, 60%, 0.6);
+    --border-color-2: hsla(15, 95%, 55%, 0.8);
+    --border-angle: 160deg;
+    /* Default spread to cover whole button */
+    --pos-x: 50%;
+    --pos-y: 50%;
+    --spread-x: 100%;
+    --spread-y: 100%;
+    --stop-1: 0%;
+    --stop-2: 25%;
+    --stop-3: 50%;
+    --stop-4: 75%;
+    --stop-5: 100%;
+    /* Enhanced shadow for depth */
+    --button-shadow: 0 2px 8px rgba(234, 88, 12, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    --button-scale: 1;
+  }
+
+  :root[class~="light"] .gradient-button:not(.gradient-button-variant):hover {
+    /* Vibrant gradient on hover - fully opaque */
+    --pos-x: 50%;
+    --pos-y: 50%;
+    --spread-x: 160%;
+    --spread-y: 160%;
+    --color-1: #fff1e6; /* Center stays light - fully opaque */
+    --color-2: #ffcf80; /* Vibrant light orange - fully opaque */
+    --color-3: #ffa94d; /* Strong mid orange - fully opaque */
+    --color-4: #ff8000; /* Deep orange - fully opaque */
+    --color-5: #ff5500; /* Extreme orange - fully opaque */
+    --border-color-1: hsla(24, 100%, 50%, 0.8); /* Darker orange border */
+    --border-color-2: hsla(15, 100%, 45%, 1); /* Darker red-orange border */
+    --border-angle: 180deg;
+    /* Gradient distribution */
+    --stop-1: 0%;
+    --stop-2: 35%;
+    --stop-3: 60%;
+    --stop-4: 75%;
+    --stop-5: 100%;
+    /* Enhanced shadow and subtle scale effect */
+    --button-shadow: 0 8px 25px rgba(255, 85, 0, 0.35), 0 3px 10px rgba(255, 85, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    --button-scale: 1.03;
+  }
+
+  /* Light mode - variant (Teal theme) */
+  :root[class~="light"] .gradient-button-variant {
+    /* Solid teal background - darker and no transparency */
+    --color-1: #c8eeea; /* Darker light teal - fully opaque */
+    --color-2: #b8e9e4; /* Darker light teal - fully opaque */
+    --color-3: #a8e4de; /* Medium teal - fully opaque */
+    --color-4: #98dfd8; /* Medium teal - fully opaque */
+    --color-5: #88dad2; /* Medium-dark teal - fully opaque */
+    /* Strong border */
+    --border-color-1: hsla(172, 75%, 55%, 0.6);
+    --border-color-2: hsla(172, 75%, 45%, 0.8);
+    --border-angle: 170deg;
+    /* Default spread to cover whole button */
+    --pos-x: 50%;
+    --pos-y: 50%;
+    --spread-x: 100%;
+    --spread-y: 100%;
+    --stop-1: 0%;
+    --stop-2: 25%;
+    --stop-3: 50%;
+    --stop-4: 75%;
+    --stop-5: 100%;
+    /* Enhanced shadow for depth */
+    --button-shadow: 0 2px 8px rgba(13, 148, 136, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    --button-scale: 1;
+  }
+
+  :root[class~="light"] .gradient-button-variant:hover {
+    /* Vibrant gradient on hover - fully opaque */
+    --pos-x: 50%;
+    --pos-y: 50%;
+    --spread-x: 160%;
+    --spread-y: 160%;
+    --color-1: #c8eeea; /* Center stays medium teal - fully opaque */
+    --color-2: #7edbd1; /* Medium teal - fully opaque */
+    --color-3: #40ccc0; /* Bright teal - fully opaque */
+    --color-4: #00bdad; /* Vibrant teal - fully opaque */
+    --color-5: #00a296; /* Rich teal - fully opaque */
+    --border-color-1: hsla(172, 95%, 40%, 0.8); /* Darker teal border */
+    --border-color-2: hsla(172, 95%, 30%, 1); /* Very dark teal border */
+    --border-angle: 190deg;
+    /* Gradient distribution */
+    --stop-1: 0%;
+    --stop-2: 35%;
+    --stop-3: 60%;
+    --stop-4: 75%;
+    --stop-5: 100%;
+    /* Enhanced shadow and subtle scale effect */
+    --button-shadow: 0 8px 25px rgba(20, 184, 166, 0.35), 0 3px 10px rgba(20, 184, 166, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    --button-scale: 1.03;
+  }
+
+  /* Remove any other variant-specific styles outside the light/dark sections */
+  .gradient-button-variant:hover {
+    --color-1: initial;
+    --color-2: initial;
+    --color-3: initial;
+    --color-4: initial;
+    --color-5: initial;
+  }
+
+  /* Dark mode - default variant (Orange theme) */
+  :root[class~="dark"] .gradient-button:not(.gradient-button-variant) {
+    /* Solid dark orange color - no transparency */
+    --color-1: #4d2c16; /* Dark rich brown-orange - fully opaque */
+    --color-2: #5a331a; /* Dark rich brown-orange - fully opaque */
+    --color-3: #663a1e; /* Medium brown-orange - fully opaque */
+    --color-4: #734022; /* Medium brown-orange - fully opaque */
+    --color-5: #7f4626; /* Medium-light brown-orange - fully opaque */
+    /* Strong border */
+    --border-color-1: hsla(24, 95%, 70%, 0.6);
+    --border-color-2: hsla(15, 95%, 65%, 0.8);
+    --border-angle: 160deg;
+    /* Default spread to cover whole button */
+    --pos-x: 50%;
+    --pos-y: 50%;
+    --spread-x: 100%;
+    --spread-y: 100%;
+    --stop-1: 0%;
+    --stop-2: 25%;
+    --stop-3: 50%;
+    --stop-4: 75%;
+    --stop-5: 100%;
+    /* Enhanced shadow for depth */
+    --button-shadow: 0 2px 8px rgba(251, 146, 60, 0.25), 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    --button-scale: 1;
+  }
+
+  :root[class~="dark"] .gradient-button:not(.gradient-button-variant):hover {
+    /* Vibrant gradient on hover - fully opaque */
+    --pos-x: 50%;
+    --pos-y: 50%;
+    --spread-x: 160%;
+    --spread-y: 160%;
+    --color-1: #4d2c16; /* Dark rich brown-orange - fully opaque */
+    --color-2: #7a4012; /* Medium brown-orange - fully opaque */
+    --color-3: #a85510; /* Light brown-orange - fully opaque */
+    --color-4: #d66b00; /* Vibrant orange - fully opaque */
+    --color-5: #ff9500; /* Bright gold-orange - fully opaque */
+    --border-color-1: hsla(24, 100%, 75%, 0.8);
+    --border-color-2: hsla(15, 100%, 70%, 1);
+    --border-angle: 180deg;
+    /* Gradient distribution */
+    --stop-1: 0%;
+    --stop-2: 35%;
+    --stop-3: 60%;
+    --stop-4: 75%;
+    --stop-5: 100%;
+    /* Enhanced shadow and subtle scale effect */
+    --button-shadow: 0 8px 25px rgba(255, 149, 0, 0.35), 0 3px 10px rgba(255, 149, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    --button-scale: 1.03;
+  }
+
+  /* Dark mode - variant (Teal theme) */
+  :root[class~="dark"] .gradient-button-variant {
+    /* Solid dark teal color - no transparency */
+    --color-1: #0a3330; /* Dark rich teal - fully opaque */
+    --color-2: #0e3f3b; /* Dark rich teal - fully opaque */
+    --color-3: #124b46; /* Medium dark teal - fully opaque */
+    --color-4: #165751; /* Medium teal - fully opaque */
+    --color-5: #1a635c; /* Medium-light teal - fully opaque */
+    /* Strong border */
+    --border-color-1: hsla(172, 75%, 65%, 0.6);
+    --border-color-2: hsla(172, 75%, 55%, 0.8);
+    --border-angle: 170deg;
+    /* Default spread to cover whole button */
+    --pos-x: 50%;
+    --pos-y: 50%;
+    --spread-x: 100%;
+    --spread-y: 100%;
+    --stop-1: 0%;
+    --stop-2: 25%;
+    --stop-3: 50%;
+    --stop-4: 75%;
+    --stop-5: 100%;
+    /* Enhanced shadow for depth */
+    --button-shadow: 0 2px 8px rgba(45, 212, 191, 0.25), 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    --button-scale: 1;
+  }
+
+  :root[class~="dark"] .gradient-button-variant:hover {
+    /* Vibrant gradient on hover - fully opaque */
+    --pos-x: 50%;
+    --pos-y: 50%;
+    --spread-x: 160%;
+    --spread-y: 160%;
+    --color-1: #0a3330; /* Dark rich teal - fully opaque */
+    --color-2: #16645e; /* Medium teal - fully opaque */
+    --color-3: #009688; /* Strong teal - fully opaque */
+    --color-4: #00c4b4; /* Bright teal - fully opaque */
+    --color-5: #00e5d3; /* Vibrant bright teal - fully opaque */
+    --border-color-1: hsla(172, 100%, 70%, 0.8);
+    --border-color-2: hsla(172, 100%, 60%, 1);
+    --border-angle: 190deg;
+    /* Gradient distribution */
+    --stop-1: 0%;
+    --stop-2: 35%;
+    --stop-3: 60%;
+    --stop-4: 75%;
+    --stop-5: 100%;
+    /* Enhanced shadow and subtle scale effect */
+    --button-shadow: 0 8px 25px rgba(0, 229, 211, 0.35), 0 3px 10px rgba(0, 229, 211, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    --button-scale: 1.03;
+  }
+
+  .gradient-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px; /* Thicker border */
+    background: linear-gradient(
+      var(--border-angle),
+      var(--border-color-1),
+      var(--border-color-2)
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 2;
+    transition: padding 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .gradient-button:hover::before {
+    padding: 2.5px; /* Slightly thicker border on hover */
+    transition: padding 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  /* Add a pulsing glow effect on hover */
+  .gradient-button:after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at var(--pos-x) var(--pos-y),
+      var(--color-5) 0%,
+      transparent 70%
+    );
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: none;
+    /* Ensure glow is visible */
+    box-shadow: 0 0 15px 2px var(--color-5);
+    filter: blur(3px);
+  }
+
+  .gradient-button:hover:after {
+    opacity: 0;
+    /* animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; */
+    transition: opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* Hide site footer when messages tab is active */
+body.hide-site-footer footer {
+  display: none;
+}
+
+/* You might need to adjust the footer selector if it's not a direct child or has a specific ID/class */
+/* Example: */
+/* body.hide-site-footer #site-footer { */
+/*   display: none; */
+/* } */
+
+/* Lock body scroll when messages tab is active (on mobile) */
+@media (max-width: 767px) { /* Apply only on mobile, adjust breakpoint if needed */
+  body.messages-tab-scroll-lock {
+    overflow: hidden;
+    /* Optionally prevent interaction with underlying page elements */
+    /* position: fixed; */
+    /* width: 100%; */ 
+  }
+}
+
+.mapboxgl-popup-tip {
+  display: none; 
+  /* or visibility: hidden; */
+  /* or width: 0; height: 0; */
+  /* or opacity: 0; */
+}
+
+.mapboxgl-popup-content {
+  padding: 0 !important;
+  border-top-left-radius: 0.5rem !important;
+  border-top-right-radius: 0.5rem !important;
+}
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+    background-size: 200% 200%;
+  }
+  50% {
+    background-position: 100% 50%;
+    background-size: 200% 200%;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  background-size: 200% 200%;
+  transition: background-image 0.3s ease-in-out;
+  will-change: background-position, background-size;
+}
+
+/* Dark mode optimization for gradient animations */
+@media (prefers-color-scheme: dark) {
+  .animate-gradient-x {
+    animation-duration: 10s;
+    animation-timing-function: cubic-bezier(0.3, 0, 0.3, 1);
+  }
 }
