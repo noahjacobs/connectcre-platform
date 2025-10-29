@@ -47,6 +47,36 @@ export const COMPANY_CATEGORIES = [
   'Other',
 ] as const;
 
+// Company roles
+export const COMPANY_ROLES = [
+  "Architect",
+  "Asset Manager",
+  "Broker",
+  "Capital Advisory",
+  "Capital Markets",
+  "Construction",
+  "Consultant",
+  "Developer",
+  "Engineer",
+  "Facilities Management",
+  "Finance",
+  "General Contractor",
+  "Human Resources",
+  "Insurance",
+  "Interior Designer",
+  "Investment Sales",
+  "Investor Relations",
+  "JV Equity",
+  "Landscape Architect",
+  "Leasing",
+  "Legal Services",
+  "Lender",
+  "Manufacturer",
+  "Materials",
+  "Property Manager",
+  "Other"
+] as const;
+
 // Pagination
 export const ARTICLES_PER_PAGE = 12;
 export const PROJECTS_PER_PAGE = 12;

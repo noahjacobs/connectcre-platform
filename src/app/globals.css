@@ -4,10 +4,10 @@
 @plugin '../lib/utils/hero.ts';
 @plugin "tailwindcss-animate";
 
-@source "app/**/*.{ts,tsx}";
-@source "shared/**/*.{ts,tsx}";
-@source "features/**/*.{ts,tsx}";
-@source "hooks/**/*.{ts,tsx}";
+@source "../app/**/*.{ts,tsx}";
+@source "../components/**/*.{ts,tsx}";
+@source "../lib/**/*.{ts,tsx}";
+@source "../hooks/**/*.{ts,tsx}";
 @source "lib/**/*.{ts,tsx}";
 @source "node_modules/onborda/dist/**/*.{js,ts,jsx,tsx}";
 

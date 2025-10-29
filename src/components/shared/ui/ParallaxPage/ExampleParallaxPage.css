@@ -1,0 +1,120 @@
+.ExampleParallaxPage-scrollView {
+  height: 100%;
+}
+
+.ExampleParallaxPage-article {
+  /* INNER-LAYOUT */
+  display: grid;
+}
+
+.ExampleParallaxPage-illustration {
+  /* SELF-LAYOUT */
+  width: 100%;
+  height: 50svh;
+
+  /* APPEARANCE */
+  background-image: var(--blue-illustration-1-gradient);
+  background-origin: border-box;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.ExampleParallaxPage-articleContent {
+  /* SELF-LAYOUT */
+  justify-self: center;
+  width: min(100% - var(--size-16), 800px);
+
+  /* INNER-LAYOUT */
+  padding-block: var(--size-11) var(--size-12);
+  display: grid;
+  place-content: start;
+}
+@media (min-width: 1000px) {
+  .ExampleParallaxPage-articleContent {
+    /* SELF-LAYOUT */
+    padding-block: var(--size-17);
+  }
+}
+
+.ExampleParallaxPage-title {
+  /* SELF-LAYOUT */
+  margin-bottom: var(--size-6);
+
+  /* TEXT */
+  text-wrap: balance;
+  line-height: var(--line-height-3);
+  font-size: var(--font-size-7);
+  font-weight: var(--font-weight-8);
+  color: var(--gray-10);
+}
+@media (min-width: 1000px) {
+  .ExampleParallaxPage-title {
+    /* SELF-LAYOUT */
+    margin-bottom: var(--size-10);
+
+    /* TEXT */
+    font-size: var(--font-size-9);
+  }
+}
+
+.ExampleParallaxPage-subtitle {
+  /* TEXT */
+  text-wrap: balance;
+  text-wrap: pretty;
+  line-height: var(--line-height-4);
+  font-size: var(--font-size-5);
+  font-weight: var(--font-weight-5);
+  color: var(--gray-6);
+}
+@media (min-width: 1000px) {
+  .ExampleParallaxPage-subtitle {
+    /* TEXT */
+    line-height: var(--line-height-4);
+    font-size: var(--font-size-6);
+  }
+}
+
+.ExampleParallaxPage-author {
+  /* SELF-LAYOUT */
+  margin-top: var(--size-8);
+
+  /* TEXT */
+  font-size: var(--font-size-2);
+  color: var(--gray-6);
+}
+@media (min-width: 1000px) {
+  .ExampleParallaxPage-author {
+    margin-top: var(--size-10);
+  }
+}
+
+.ExampleParallaxPage-authorName {
+  /* TEXT */
+  font-weight: var(--font-weight-5);
+  color: var(--gray-7);
+}
+
+.ExampleParallaxPage-articleBody {
+  /* SELF-LAYOUT */
+  margin-top: var(--size-13);
+  display: grid;
+  gap: var(--size-6);
+
+  /* TEXT */
+  line-height: var(--line-height-5);
+  font-size: var(--font-size-4);
+  color: var(--gray-9);
+}
+@media (min-width: 1000px) {
+  .ExampleParallaxPage-articleBody {
+    /* SELF-LAYOUT */
+    margin-top: var(--size-17);
+  }
+}
+
+.ExampleParallaxPage-relatedPages {
+  /* INNER-LAYOUT */
+  margin-top: var(--size-16);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--size-9);
+}

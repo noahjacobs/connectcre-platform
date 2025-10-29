@@ -1,0 +1,281 @@
+.Lightbox-root {
+  /* TEXT */
+  font-size: 0;
+}
+
+.Lightbox-view {
+  /* SELF-LAYOUT */
+  z-index: 1;
+}
+
+@media (min-width: 1200px) {
+  .Lightbox-backdrop {
+    /* SELF-LAYOUT */
+    width: calc(100% - min(25%, 360px) + 1px);
+  }
+}
+
+.Lightbox-content {
+  /* SELF-LAYOUT */
+  width: 100%;
+  height: auto;
+
+  /* APPEARANCE */
+  background-color: transparent;
+
+  /* INTERACTIVITY */
+  user-select: none;
+
+  /* INNER-LAYOUT */
+  display: grid;
+  grid-template-columns: 1fr;
+  place-content: center;
+  justify-items: center;
+}
+@media (min-width: 1200px) {
+  .Lightbox-content {
+    /* INNER-LAYOUT */
+    grid-template-columns: 1fr min(25%, 360px);
+  }
+}
+
+.Lightbox-imageCell {
+  --max-height: 90vh;
+  --max-width: 100%;
+
+  /* SELF-LAYOUT */
+  width: 100%;
+  max-width: min(
+    calc(
+      (var(--natural-image-width) / var(--natural-image-height)) *
+        var(--max-height)
+    ),
+    var(--max-width)
+  );
+  height: auto;
+
+  /* TRANSFORMATION */
+  transform-origin: 0 0;
+}
+@media (min-width: 1000px) {
+  .Lightbox-imageCell {
+    /* SELF-LAYOUT */
+    --max-width: 90%;
+  }
+}
+
+.Lightbox-imageWrapper {
+  /* SELF-LAYOUT */
+  width: 100%;
+  height: 0;
+  /* `padding-top` hack to preserve aspect-ratio. `aspect-ratio`
+    can't work here because we want `max-width` & `max-height` */
+  padding-top: min(
+    calc((var(--natural-image-height) / var(--natural-image-width)) * 100%),
+    var(--max-height)
+  );
+
+  /* INNER-LAYOUT */
+  position: relative;
+}
+
+.Lightbox-illustration {
+  /* SELF-LAYOUT */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* APPEARANCE */
+  background-image: var(--blue-illustration-1-gradient);
+  background-origin: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.Lightbox-dismissTrigger {
+  /* SELF-LAYOUT */
+  position: fixed;
+  z-index: 2;
+  left: var(--size-5);
+  top: max(var(--size-5), calc(env(safe-area-inset-top, 0px) + var(--size-3)));
+  grid-area: 1 / 1;
+  justify-self: right;
+
+  /* APPEARANCE */
+  border-radius: var(--radius-full);
+  outline-color: white;
+
+  /* INTERACTIVITY */
+  transition: opacity 300ms ease-in;
+}
+.Lightbox-dismissTrigger.visible-false {
+  /* APPEARANCE */
+  opacity: 0;
+
+  /* INTERACTIVITY */
+  transition: opacity 300ms ease-out;
+  pointer-events: none;
+}
+
+.Lightbox-sidebar {
+  /* SELF-LAYOUT */
+  position: fixed;
+  z-index: 2;
+  right: -1px;
+  top: -1px;
+  width: min(25% + 1px, 360px);
+  height: calc(100% + 2px);
+
+  /* APPEARANCE */
+  border-left-style: solid;
+  border-left-color: var(--neutral-9);
+  background-color: var(--neutral-10);
+
+  /* INTERACTIVITY */
+  pointer-events: initial;
+  user-select: text;
+
+  /* INNER-LAYOUT */
+  border-left-width: var(--thickness-1);
+  display: grid;
+
+  /* TEXT */
+  color: white;
+}
+
+.Lightbox-sidebarContainer {
+  /* INNER-LAYOUT */
+  display: grid;
+}
+
+.Lightbox-sidebarTitle {
+  /* APPEARANCE */
+  border-bottom: 1px solid var(--neutral-9);
+
+  /* INNER-LAYOUT */
+  padding: var(--size-9);
+
+  /* TEXT */
+  color: white;
+}
+
+/* SideContentSheet */
+
+.Lightbox-sideSheetPresentTrigger {
+  /* SELF-LAYOUT */
+  position: fixed;
+  z-index: 2;
+  bottom: max(20px, calc(env(safe-area-inset-bottom, 0px) + 10px));
+  left: var(--size-8);
+
+  /* APPEARANCE */
+  appearance: none;
+  border-radius: var(--radius-full);
+  border: none;
+  background-color: transparent;
+
+  /* INTERACTIVITY */
+  transition: opacity 300ms ease-in;
+
+  /* INNER-LAYOUT */
+  padding: 0;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: var(--size-4);
+
+  /* TEXT */
+  color: white;
+}
+.Lightbox-sideSheetPresentTrigger.visible-false {
+  /* APPEARANCE */
+  opacity: 0;
+
+  /* INTERACTIVITY */
+  transition: opacity 300ms ease-out;
+  pointer-events: none;
+}
+
+.Lightbox-sideSheetPresentTrigger::before {
+  /* SELF-LAYOUT */
+  left: -20px;
+  right: -20px;
+  width: auto;
+}
+
+.Lightbox-sideSheetView {
+  /* SELF-LAYOUT */
+  z-index: 1;
+  top: 0;
+  bottom: initial;
+  /* Adding 60px to make it fully visible below iOS Safari's
+   bottom UI */
+  height: calc(var(--silk-100-lvh-dvh-pct) + 60px);
+}
+
+.Lightbox-sideSheetContent {
+  /* SELF-LAYOUT */
+  height: calc(100% - max(env(safe-area-inset-top), 6px));
+
+  /* APPEARANCE */
+  background-color: transparent;
+
+  /* INNER-LAYOUT */
+  display: grid;
+  grid-template-rows: min-content 1fr;
+}
+
+.Lightbox-sideSheetBleedingBackground {
+  /* APPEARANCE */
+  border-radius: var(--radius-7);
+  background-color: var(--neutral-10);
+}
+
+.Lightbox-sideSheetHeader {
+  /* SELF-LAYOUT */
+  height: 57px;
+
+  /* INNER-LAYOUT */
+  display: grid;
+  grid-template-columns: var(--size-17) 1fr var(--size-17);
+  justify-items: center;
+  align-items: center;
+
+  /* APPEARANCE */
+  border-bottom: var(--thickness-1) solid var(--neutral-9);
+
+  /* TEXT */
+  color: white;
+}
+
+.Lightbox-sideSheetDismissTrigger {
+  /* SELF-LAYOUT */
+  align-self: center;
+  width: var(--size-15);
+  height: var(--size-15);
+
+  /* APPEARANCE */
+  appearance: none;
+  border: none;
+  background-color: transparent;
+
+  /* INNER-LAYOUT */
+  padding: 0;
+}
+
+.Lightbox-sideSheetDismissIcon {
+  /* SELF-LAYOUT */
+  width: 36px;
+  height: 36px;
+
+  /* APPEARANCE */
+  color: var(--gray-1);
+}
+
+.Lightbox-sideSheetTitle {
+  /* TEXT */
+  text-box: trim-both cap alphabetic;
+  font-size: 17.25px;
+  font-weight: 620;
+  color: white;
+}

@@ -2,6 +2,84 @@
 
 > **Project Mission**: Transform DevProjects into a polished, production-ready platform for ConnectCRE.com, featuring exceptional UI/UX, clean architecture, and a simplified data model.
 
+## ⚡ Current Status & Immediate Next Steps
+
+### 🚧 **REALITY CHECK: Work In Progress**
+
+**The platform is in ACTIVE DEVELOPMENT.** Here's what you need to know:
+
+❌ **Not Everything Works Yet**
+- Many features copied from devprojects are not fully functional
+- Components are rendering but may have missing props, broken data flows, or incomplete logic
+- Some modals, forms, and interactive elements need complete refactoring
+- Map integration is basic - needs full connection to database queries
+- Authentication flows are partially implemented
+
+❌ **Visuals Not Fully Migrated**
+- UI components copied from devprojects but not yet styled to match reference designs exactly
+- **globals.css needs overhaul** - Colors, typography, spacing variables don't match devprojects
+- Many layout issues, spacing problems, and responsive breakpoints need fixing
+- Animations and micro-interactions need to be verified and polished
+- Color schemes, typography, and theming may be inconsistent
+- Missing components, icons, or visual elements in various places
+- **Goal**: Match devprojects design pixel-perfect, but with cleaner implementation
+
+⚠️ **Major Refactoring Required**
+- **Next.js 16 Migration Issues**: We're on Next.js 16, devprojects was on older version
+  - New App Router patterns may differ from reference code
+  - React 19 changes (useFormState → useActionState, etc.)
+  - Server Components vs Client Components boundaries need review
+  - Caching behavior changed in Next.js 16
+  - Some patterns from devprojects may not work the same way
+- **Backend Integration**: Most components still using old data structures - need complete overhaul to work with simplified database schema
+- **Logic Simplification**: Remove complex tracking features, unnecessary state management, and over-engineered solutions
+  - **Important**: Keep the beautiful design, kill the complexity
+  - Devprojects has over-engineered solutions we don't need
+  - Strip out unnecessary abstractions while preserving visual quality
+- **Data Fetching**: Standardize server actions, properly implement RLS, ensure efficient queries
+- **Type Safety**: Many `any` types, missing interfaces, and type errors to fix
+- **Performance**: Optimize bundle size, implement proper code splitting, fix hydration issues
+- **Styling System**: globals.css, Tailwind config, CSS variables need alignment with devprojects visual style
+
+🎯 **The Path Forward: No Stone Left Unturned**
+
+This is a **COMPLETE REBUILD**, not just a copy-paste operation. Every single component, function, and feature needs to be:
+1. **Reviewed** - Does it match our simplified architecture?
+2. **Refactored** - Remove complexity, fix data flows, proper typing
+3. **Tested** - Ensure it works with our new backend
+4. **Polished** - Match or exceed the visual quality of devprojects
+5. **Optimized** - Performance, accessibility, user experience
+
+**We have significant work ahead. This document serves as the roadmap.**
+
+---
+
+### ✅ Completed (Foundation Only)
+1. **Project Setup**: New Next.js 16 + React 19 repo initialized
+2. **Database Schema**: Simplified Drizzle schema created with RLS policies
+   - profiles, companies, company_members, projects, articles, bookmarks, messages
+3. **Authentication**: Clerk integrated with native Supabase support (no JWT templates)
+4. **Supabase Setup**: RLS policies configured, proper auth flow working
+5. **Dependencies**: Core packages installed (@silk-hq/components, @heroui/react, etc.)
+6. **CSS Setup**: globals.css copied with Tailwind v4 + custom theme
+7. **Initial Component Copy**: Basic structure from devprojects copied (needs extensive refactoring)
+8. **Provider Setup**: All context providers configured (Auth, Supabase, Subscription, etc.)
+
+### 🔄 In Progress (Lots of Work Remaining)
+- **Component Migration**: Copying and adapting UI components from devprojects
+- **Database Integration**: Connecting all components to simplified schema
+- **Bug Fixes**: Resolving TypeScript errors, missing exports, prop mismatches
+- **Visual Polish**: Bringing design quality up to devprojects standards
+- **Feature Implementation**: Making copied features actually work
+
+### 📋 Next Immediate Tasks
+1. **Create comprehensive seed data** - Realistic demo content for all tables
+2. **Fix all broken components** - Resolve prop errors, missing data, type issues
+3. **Refactor data fetching** - Proper server actions with new schema
+4. **Update all visuals** - Match devprojects design quality
+5. **Test everything** - Ensure every feature works end-to-end
+6. **Performance audit** - Optimize bundle, fix hydration, improve LCP
+
 ## 📁 Repository Structure
 
 This CLAUDE.md file lives in the new `connectcre-platform` repository. The old codebase is located in the `devprojects` folder (sibling directory) for reference when copying components.
@@ -47,6 +125,44 @@ This document outlines the complete rebuild of the DevProjects platform to deliv
 ---
 
 ## 🎯 Core Objectives
+
+### 🔧 Refactoring Philosophy
+
+**CRITICAL**: This is not a 1:1 port. We are strategically rebuilding with these principles:
+
+1. **Simplify Logic, Preserve Beauty** ⭐ **MOST IMPORTANT**
+   - **Design Goal**: Match devprojects visually pixel-perfect (or better)
+     - Copy exact spacing, colors, typography, animations from devprojects
+     - Use devprojects as the visual reference/benchmark
+     - globals.css should match devprojects styling system
+     - Component styles should look identical to reference
+   - **Logic Goal**: Kill the complexity, keep only what's needed
+     - Strip out over-engineered solutions from devprojects
+     - Remove unnecessary state management and complex data flows
+     - Eliminate features we're not using (tracking tab, complex alerts, etc.)
+     - Simplify data fetching - no need for complex caching layers
+     - Remove abstractions that don't add value
+   - **Remember**: Beautiful UI with simple, maintainable code underneath
+
+2. **Backend-First Integration**
+   - Every component must work with the simplified database schema
+   - All queries must respect RLS policies
+   - Server actions for mutations, client queries for reads
+   - No shortcuts - proper TypeScript types throughout
+
+3. **Quality Over Speed**
+   - Better to refactor one component perfectly than copy ten poorly
+   - Each component should be production-ready before moving on
+   - Test thoroughly with real data (seed scripts)
+   - No `any` types, no temporary hacks, no "fix later" comments
+
+4. **No Stone Left Unturned**
+   - Review every single component, hook, and utility
+   - Question every line of code: "Do we need this?"
+   - Optimize for maintainability and handoff to ConnectCRE team
+   - Document complex logic, architectural decisions
+
+---
 
 ### What We're Keeping (The Good Stuff)
 
@@ -103,7 +219,113 @@ This document outlines the complete rebuild of the DevProjects platform to deliv
 
 ---
 
+## 🔨 Critical Refactoring Roadmap
+
+**BEFORE continuing with the full to-do list below, we must systematically refactor what we've already copied.**
+
+### 🎯 Refactoring Priorities (Do These First!)
+
+#### Priority 1: Fix Broken Foundations
+- [ ] **Resolve all TypeScript errors** - No more `any` types, fix all missing exports
+- [ ] **Fix component prop mismatches** - Many components expecting props that don't exist
+- [ ] **Standardize data types** - Create proper interfaces for all data structures
+- [ ] **Test all context providers** - Ensure Auth, Supabase, Subscription contexts work correctly
+- [ ] **Fix routing issues** - Ensure all tabs/navigation work properly
+
+#### Priority 2: Database Integration
+- [ ] **Audit all data fetching** - Replace old Sanity queries with Supabase queries
+- [ ] **Create server actions** - Proper server actions for all mutations (articles, projects, bookmarks, messages)
+- [ ] **Implement RLS checks** - Ensure all queries respect Row Level Security
+- [ ] **Add proper error handling** - Graceful failures, user-friendly error messages
+- [ ] **Create seed data first** - Can't test without real data!
+
+#### Priority 3: Visual Overhaul (Design System First, Then Components)
+
+**Step 1: Fix globals.css & Design System**
+- [ ] **Compare globals.css** - Side-by-side with devprojects/app/globals.css
+- [ ] **CSS Variables** - Copy exact color palette, spacing scale, typography from devprojects
+- [ ] **Tailwind Config** - Match theme configuration to devprojects
+- [ ] **Font Setup** - Ensure same fonts, weights, line-heights as reference
+- [ ] **Dark Mode** - Copy exact dark mode color scheme
+- [ ] **Base Styles** - Match body, headings, links, etc.
+
+**Step 2: Component-by-Component Visual Matching**
+Each component needs this checklist:
+- [ ] **Screenshot devprojects reference** - Take screenshot of how it should look
+- [ ] **Compare current implementation** - Side-by-side visual comparison
+- [ ] **Fix layout/spacing** - Match exact spacing, padding, margins from reference
+- [ ] **Fix colors** - Use exact same color variables as devprojects
+- [ ] **Fix typography** - Match font sizes, weights, line heights
+- [ ] **Verify animations** - Ensure smooth transitions, proper easing, same timing
+- [ ] **Test responsiveness** - Mobile, tablet, desktop breakpoints match reference
+- [ ] **Accessibility audit** - Keyboard nav, screen readers, ARIA labels
+- [ ] **Performance check** - Lazy loading, code splitting, bundle size
+
+#### Priority 4: Feature-by-Feature Verification
+
+**Home Feed**
+- [ ] Article grid renders with proper data from database
+- [ ] Map integration works (Mapbox shows correct pins)
+- [ ] Search and filters function correctly
+- [ ] View mode toggles (list/split/map) work
+- [ ] Article modals open with full content
+- [ ] Infinite scroll/pagination works
+
+**Messages**
+- [ ] Thread list loads from database
+- [ ] Can send new messages
+- [ ] Real-time updates work (Supabase Realtime)
+- [ ] Message composer functions
+- [ ] Notifications trigger correctly
+
+**Directory**
+- [ ] Company cards render properly
+- [ ] Company modals show full details
+- [ ] Company claim flow works
+- [ ] Company profiles are editable by members
+
+**Company Dashboard**
+- [ ] Team management works
+- [ ] Project management works
+- [ ] Settings update correctly
+- [ ] Billing integration (if applicable)
+
+### 🔄 Refactoring Workflow (For Each Component)
+
+1. **Identify** - Which devprojects component are we refactoring?
+2. **Compare** - Side-by-side visual comparison
+3. **Analyze** - What data does it need? What's the simplified equivalent?
+4. **Refactor** - Rewrite data fetching, fix types, simplify logic
+5. **Style** - Match visual design exactly
+6. **Test** - With real seed data, verify all functionality
+7. **Optimize** - Performance, accessibility, code quality
+8. **Document** - Add comments for complex logic
+9. **Move On** - Mark as complete, go to next component
+
+### 📊 Progress Tracking
+
+Create a spreadsheet or markdown checklist with:
+- Component name
+- Status (Not Started / In Progress / Needs Review / Complete)
+- Visual match? (Yes/No)
+- Backend working? (Yes/No)
+- Responsive? (Yes/No)
+- Performance OK? (Yes/No)
+
+**Example:**
+```
+| Component           | Status      | Visual | Backend | Responsive | Performance |
+|---------------------|-------------|--------|---------|------------|-------------|
+| ArticleCard         | Complete    | ✅     | ✅      | ✅         | ✅          |
+| PostModal           | In Progress | ⚠️     | ❌      | ✅         | ⚠️          |
+| CompanyProfile      | Not Started | ❌     | ❌      | ❌         | ❌          |
+```
+
+---
+
 ## 🚀 Complete To-Do List
+
+**NOTE:** The phases below are the FULL roadmap. Before diving deep into new phases, complete the Refactoring Roadmap above to ensure a solid foundation.
 
 ### Phase 1: Project Setup & Migration
 
@@ -142,79 +364,28 @@ This document outlines the complete rebuild of the DevProjects platform to deliv
 - [ ] Install Lucide icons
 - [ ] Install Sonner for toasts
 
-### Phase 2: Database Architecture
+### Phase 2: Database Architecture ✅ COMPLETED
 
-#### 2.1 Design Simplified Schema
+#### 2.1 Design Simplified Schema ✅
 
-**Core Tables:**
+**Core Tables:** (All created in `src/lib/db/schema/`)
 
-- [ ] `profiles` - User profiles
-  - id, clerk_id, email, full_name, avatar_url
-  - persona (dropdown: Developer, Broker, Architect, etc.)
-  - created_at, updated_at
+- [x] `profiles` - User profiles with clerk_id, email, full_name, avatar_url, persona
+- [x] `companies` - Company directory with verification status
+- [x] `company_members` - Team management with roles
+- [x] `projects` - Real estate projects with location data
+- [x] `articles` - News articles/posts with rich content
+- [x] `bookmarks` - Saved items (replaces tracking)
+- [x] `message_threads` - Conversation threads
+- [x] `messages` - Individual messages
 
-- [ ] `companies` - Company directory
-  - id, slug, name, description, logo_url
-  - website_url, contact_email, contact_phone
-  - address, city, state, country
-  - categories[] (array: Developer, Architect, etc.)
-  - is_verified, status (pending/approved)
-  - created_at, updated_at
+#### 2.2 Database Implementation ✅
 
-- [ ] `company_members` - Team management
-  - id, company_id, user_id
-  - role (owner, admin, member)
-  - created_at
-
-- [ ] `projects` - Real estate projects
-  - id, slug, title, description
-  - address, latitude, longitude
-  - city, neighborhood
-  - status (proposed, approved, under_construction, completed)
-  - property_types[] (array: Residential, Commercial, Mixed-Use, etc.)
-  - images (jsonb array)
-  - metadata (jsonb)
-  - company_id (developer)
-  - created_at, updated_at, published_at
-
-- [ ] `articles` - News articles/posts
-  - id, slug, title, subtitle
-  - content (jsonb - rich text blocks)
-  - images (jsonb array)
-  - author_id (profile or company)
-  - project_id (optional link)
-  - city, neighborhood
-  - tags[]
-  - created_at, updated_at, published_at
-
-- [ ] `bookmarks` - Saved items (replaces tracking)
-  - id, user_id
-  - item_type (article or project)
-  - item_id
-  - created_at
-
-- [ ] `message_threads` - Conversation threads
-  - id, participant_a_id, participant_b_id
-  - last_message_at
-  - created_at
-
-- [ ] `messages` - Individual messages
-  - id, thread_id, sender_id
-  - content, read_at
-  - created_at
-
-#### 2.2 Database Implementation
-
-- [ ] Create Drizzle schema definitions
-- [ ] Set up proper indexes for performance
-  - city/neighborhood indexes
-  - slug indexes
-  - published_at indexes
-  - location (lat/lng) indexes for map queries
-- [ ] Configure Row Level Security (RLS) policies
-- [ ] Create database migrations
-- [ ] Test RLS policies thoroughly
-- [ ] Create seed data script with realistic demo content
+- [x] Create Drizzle schema definitions
+- [x] Set up proper indexes for performance
+- [x] Configure Row Level Security (RLS) policies
+- [x] Run `pnpm db:push` successfully
+- [ ] **NEXT:** Create seed data script with realistic demo content
   - 50+ high-quality articles with images
   - 30+ projects with locations in major cities
   - 20+ companies with profiles
@@ -1098,19 +1269,48 @@ Before starting, confirm:
 
 ---
 
-## 🎉 Final Thoughts
+## 🎯 Our Commitment: No Stone Left Unturned
 
-This is an ambitious rebuild focused on **quality over quantity**. The goal is to create a platform that:
+This is an **ambitious, meticulous rebuild** focused on **quality over quantity**. We refuse to cut corners.
+
+### The Standard We're Holding Ourselves To:
 
 1. **Looks Amazing** - Modern, clean, fast
-2. **Works Perfectly** - No bugs, smooth interactions
-3. **Scales Easily** - Clean architecture for future growth
-4. **Delights Users** - Intuitive, engaging, helpful
+   - Every component must match or exceed devprojects visual quality
+   - Smooth animations, perfect spacing, responsive design
+   - Accessibility built-in from the start
 
-By following this plan, we'll deliver a production-ready platform that ConnectCRE can be proud to showcase.
+2. **Works Perfectly** - No bugs, smooth interactions
+   - Every feature tested end-to-end with real data
+   - Proper error handling, loading states, edge cases
+   - Type-safe throughout - no `any` types
+
+3. **Scales Easily** - Clean architecture for future growth
+   - Simplified logic, maintainable code
+   - Proper separation of concerns
+   - Well-documented for handoff
+
+4. **Delights Users** - Intuitive, engaging, helpful
+   - Fast page loads, smooth transitions
+   - Clear user feedback, helpful error messages
+   - Mobile-first, performance-optimized
+
+### Our Refactoring Promise:
+
+✅ **Every component will be reviewed**
+✅ **Every data flow will be validated**
+✅ **Every visual detail will be polished**
+✅ **Every feature will be tested**
+✅ **Every line of code will be questioned**
+
+We won't ship half-finished features. We won't leave "TODO" comments for later. We won't accept "good enough."
+
+**We leave no stone unturned.**
+
+By following this rigorous approach, we'll deliver a production-ready platform that ConnectCRE can be proud to showcase and confidently build upon.
 
 ---
 
-**Last Updated:** October 28, 2025
-**Version:** 1.0
-**Status:** Ready for Kickoff
+**Last Updated:** January 2025
+**Version:** 2.0 - Reality Check Edition
+**Status:** Active Development - Foundation Phase Complete, Systematic Refactoring In Progress

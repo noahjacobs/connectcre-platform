@@ -1,6 +1,4 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
+// Central utilities export file
+// Re-export all utility functions from utils/index.ts (includes cn, formatDate, debounce, etc.)
+// and navigation functions from utils/navigation.ts
+export * from './utils/index';
